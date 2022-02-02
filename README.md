@@ -1,2 +1,2 @@
-# GEOTISME
+# GEAUTISME
 projet d'application
