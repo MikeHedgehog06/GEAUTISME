@@ -11,7 +11,7 @@
 define("NOM_APPLICATION", "Geautisme");
 
 // Chemin vers le fichier de base de données SQLite3
-define("CHEMIN_VERS_BDD", "bdd/Geautisme.sqlite");
+define("CHEMIN_VERS_BDD", "../Geautisme_old/bdd/Geautisme.sqlite");
 
 // Login et password de l'administrateur du site
 define("ADMIN_LOGIN", "admin");
