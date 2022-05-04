@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/Geautisme/index.php?action=accueil">Accueil</a>
+                    <a class="nav-link" href="./index.php?action=sites">Accueil</a>
                 </li>
                 <!-- Si la personne est authentifiée -->
                 <?php// if ( (isset($_SESSION["authentification"])) && ($_SESSION["authentification"] == 1) ) : ?>

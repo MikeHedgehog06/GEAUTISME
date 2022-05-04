@@ -40,12 +40,8 @@ include("bdd.class.php");
 </header>
 
 <!-- Second Grid -->
-<h1>Accueil</h1>
-<a href="/Geautisme/index.php?action=ajoutform">
-	<button class="btn"> Ajouter Des Sites </button>
-</a>
 <?php
-if ($_GET["action"] == "sites"){
+if ($_GET["action"] == "sites" || $_GET["action"] == ""){
         try {
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
@@ -68,7 +64,47 @@ if ($_GET["action"] == "sites"){
 	else if ($_GET["action"] == "ajoutform"){
         // Affichage de l'IHM ajout
         include("ihm/sites_ajout.php");
+	}
+	
+	else if ($_GET["action"] == "ajoutbdd"){
+        try {
+            // Connexion à la base de données
+            $bdd = new Bdd(CHEMIN_VERS_BDD);
+
+            // Récupération de tous les livres
+            $resultat = $bdd->ajouterUnSite(
+                $_GET["adresse"],
+                $_GET["codePostal"],
+                $_GET["nom"],
+                $_GET["type"],
+                $_GET["longitude"],
+                $_GET["latitude"],
+                $_GET["heureDebut"],
+				$_GET["heureFin"],
+				$_GET["joursOuverture"],
+				$_GET["liensReseaux"],
+				$_GET["numTel"],
+				$_GET["statut"],
+            );
+			
+            //echo "RESULTAT => ".$resultat;
+
+            // Récupération de tous les livres
+            $les_sites = $bdd->recupererTousLesSites();
+
+            // Affichage de l'IHM listant les livres de la base de données
+            include("ihm/sites_liste.php");
+        }
+        catch (PDOException $erreur) {
+            // Préparation du message d'erreur à afficher
+            $message_erreur = $erreur->getMessage();
+
+            // Affichage de l'IHM erreur
+            include("ihm/erreur.php");
+            exit(1);
+        }
     }
+
 	?>
 
 	<!-- Footer -->

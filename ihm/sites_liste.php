@@ -16,7 +16,7 @@ include("en_tete.php");
 
 <!-- Bouton pour ajouter un nouveau site -->
 <p>Pour ajouter un nouveau site, cliquer sur le bouton</p>
-<a href="/Geautisme/index.php?action=ajoutform">
+<a href="./index.php?action=ajoutform">
     <button class="btn btn-success">Ajouter un site</button>
 </a>
 
@@ -36,14 +36,14 @@ include("en_tete.php");
         foreach($les_sites as $un_site) {
             echo "<tr>";
             echo "<td>";
-            echo "<a href=\"/Geautisme/index.php?action=details&idsite=".$un_site["idSites"]."\">";
+            echo "<a href=\"/GEAUTISME/index.php?action=details&idsite=".$un_site["idSites"]."\">";
             echo $un_site["nom"]."</a>";
             echo "</td>";
             echo "<td>".$un_site["adresse"]."</td>";
             echo "<td>";
-            echo "<a href=\"/Geautisme/index.php?action=editionform&idsite=".$un_site["idSites"]."\">";
+            echo "<a href=\"/GEAUTISME/index.php?action=editionform&idsite=".$un_site["idSites"]."\">";
             echo "<button class=\"btn btn-warning\">Editer</button></a>";
-            echo "<a href=\"/Geautisme/index.php?action=suppressionsite&idsite=".$un_site["idSites"]."\">";
+            echo "<a href=\"/GEAUTISME/index.php?action=suppressionsite&idsite=".$un_site["idSites"]."\">";
             echo "<button class=\"btn btn-danger\">Supprimer</button></a>";
             echo "</td>";
             echo "</tr>";
