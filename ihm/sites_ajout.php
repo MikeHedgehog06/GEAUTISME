@@ -87,8 +87,8 @@ include("en_tete.php");
 
     <!-- Bouton pour envoyer le formulaire -->
     <button type="submit" class="btn btn-primary">Ajouter ce site</button>
-</div>
 
+</div>
 </form>
 </div>
 

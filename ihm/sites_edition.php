@@ -10,7 +10,7 @@
 include("en_tete.php");
 ?>
 
-
+<?php var_dump ($un_site); ?>
 <h1>Sites</h1>
 
 <form action="index.php" method="GET">
@@ -21,7 +21,8 @@ include("en_tete.php");
                 name="idSites"
                 class="form-control"
                 value="<?php echo $un_site["idSites"]; ?>"
-                disabled>
+                disabled />
+				
         <input type="hidden" name="idSites" value="<?php echo $un_site["idSites"]; ?>" />
     </div>
 
@@ -30,7 +31,7 @@ include("en_tete.php");
         <input  type="text"
                 name="adresse"
                 class="form-control"
-                value="<?php echo $un_site["adresse"]; ?>">
+                value="<?php echo $un_site["adresse"]; ?>" />
     </div>
 
     <!-- Exemple pour le champ codePostal -->
@@ -39,7 +40,7 @@ include("en_tete.php");
         <input  type="text"
                 name="codePostal"
                 class="form-control"
-                value="<?php echo §un_site["codePostal"]; ?>">
+                value="<?php echo §un_site["codePostal"]; ?>" />
     </div>
 
     <div class="form-group">
@@ -47,7 +48,7 @@ include("en_tete.php");
         <input  type="text"
                 name="nom"
                 class="form-control"
-                value="<?php echo §un_site["nom"]; ?>" >
+                value="<?php echo §un_site["nom"]; ?>" />
     </div>
 
     <div class="form-group">
@@ -55,7 +56,7 @@ include("en_tete.php");
         <input  type="text"
                 name="type"
                 class="form-control"
-                value="<?php echo §un_site["type"]; ?>">
+                value="<?php echo §un_site["type"]; ?>" />
     </div>
 
     <div class="form-group">
@@ -63,7 +64,7 @@ include("en_tete.php");
         <input  type="text"
                 name="longitude"
                 class="form-control"
-                value="<?php echo §un_site["longitude"]; ?>">
+                value="<?php echo §un_site["longitude"]; ?>" />
     </div>
 
     <div class="form-group">
@@ -71,7 +72,7 @@ include("en_tete.php");
         <input  type="text"
                 name="latitude"
                 class="form-control"
-                value="<?php echo §un_site["latitude"]; ?>">
+                value="<?php echo §un_site["latitude"]; ?>" />
     </div>
 
     <div class="form-group">
@@ -79,7 +80,7 @@ include("en_tete.php");
         <input  type="text"
                 name="heureDebut"
                 class="form-control"
-                value="<?php echo §un_site["heureDebut"]; ?>">
+                value="<?php echo §un_site["heureDebut"]; ?>" />
     </div>
 	
 	<div class="form-group">
@@ -87,7 +88,7 @@ include("en_tete.php");
         <input  type="text"
                 name="heureFin"
                 class="form-control"
-                value="<?php echo §un_site["heureFin"]; ?>">
+                value="<?php echo §un_site["heureFin"]; ?>" />
     </div>
 	
 	<div class="form-group">
@@ -95,7 +96,7 @@ include("en_tete.php");
         <input  type="text"
                 name="joursOuverture"
                 class="form-control"
-                value="<?php echo §un_site["joursOuverture"]; ?>">
+                value="<?php echo §un_site["joursOuverture"]; ?>" />
     </div>
 	
 	<div class="form-group">
@@ -103,7 +104,7 @@ include("en_tete.php");
         <input  type="text"
                 name="liensReseaux"
                 class="form-control"
-                value="<?php echo §un_site["liensReseaux"]; ?>">
+                value="<?php echo §un_site["liensReseaux"]; ?>" />
     </div>
 	
 	<div class="form-group">
@@ -111,7 +112,7 @@ include("en_tete.php");
         <input  type="text"
                 name="numTel"
                 class="form-control"
-                value="<?php echo §un_site["numTel"]; ?>">
+                value="<?php echo §un_site["numTel"]; ?>" />
     </div>
 	
 	<div class="form-group">
@@ -119,7 +120,7 @@ include("en_tete.php");
         <input  type="text"
                 name="statut"
                 class="form-control"
-                value="<?php echo §un_site["statut"]; ?>">
+                value="<?php echo §un_site["statut"]; ?>" />
     </div>
 
     <!-- Champ de formulaire caché pour transmettre l'action au contrôleur -->

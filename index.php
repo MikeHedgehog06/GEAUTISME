@@ -71,7 +71,7 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
 
-            // Récupération de tous les livres
+            // Récupération de tous les sites
             $resultat = $bdd->ajouterUnSite(
                 $_GET["adresse"],
                 $_GET["codePostal"],
@@ -84,13 +84,93 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
 				$_GET["joursOuverture"],
 				$_GET["liensReseaux"],
 				$_GET["numTel"],
-				$_GET["statut"],
+				$_GET["statut"]
             );
 			
             //echo "RESULTAT => ".$resultat;
 
+            // Récupération de tous les sites
+            $les_sites = $bdd->recupererSites();
+
+            // Affichage de l'IHM listant les sites de la base de données
+            include("ihm/sites_liste.php");
+        }
+        catch (PDOException $erreur) {
+            // Préparation du message d'erreur à afficher
+            $message_erreur = $erreur->getMessage();
+
+            // Affichage de l'IHM erreur
+            include("ihm/erreur.php");
+            exit(1);
+        }
+    }
+	else if ($_GET["action"] == "suppressionsite"){
+        try {
+            // Connexion à la base de données
+            $bdd = new Bdd(CHEMIN_VERS_BDD);
+
             // Récupération de tous les livres
-            $les_sites = $bdd->recupererTousLesSites();
+            $resultat = $bdd->supprimerUnSite( $_GET["idsite"] );
+
+            // Récupération de tous les livres
+            $les_sites = $bdd->recupererSites();
+
+            // Affichage de l'IHM listant les livres de la base de données
+            include("ihm/sites_liste.php");
+        }
+        catch (PDOException $erreur) {
+            // Préparation du message d'erreur à afficher
+            $message_erreur = $erreur->getMessage();
+
+            // Affichage de l'IHM erreur
+            include("ihm/erreur.php");
+            exit(1);
+        }
+		
+    }
+	else if ($_GET["action"] == "editionform"){
+        try {
+            // Connexion à la base de données
+            $bdd = new Bdd(CHEMIN_VERS_BDD);
+
+            // On récupère le livre à éditer/modifier
+            $un_site = $bdd->recupererSites( $_GET["idsite"] );
+
+            // Affichage de l'IHM listant les livres de la base de données
+            include("ihm/sites_edition.php");
+        }
+        catch (PDOException $erreur) {
+            // Préparation du message d'erreur à afficher
+            $message_erreur = $erreur->getMessage();
+
+            // Affichage de l'IHM erreur
+            include("ihm/erreur.php");
+            exit(1);
+        }
+    }
+	else if ($_GET["action"] == "editionbdd"){
+        try {
+            // Connexion à la base de données
+            $bdd = new Bdd(CHEMIN_VERS_BDD);
+
+            // Récupération de tous les livres
+            $resultat = $bdd->modifierSite(
+                $_GET["adresse"],
+                $_GET["codePostal"],
+                $_GET["nom"],
+                $_GET["type"],
+                $_GET["longitude"],
+                $_GET["latitude"],
+                $_GET["heureDebut"],
+				$_GET["heureFin"],
+				$_GET["joursOuverture"],
+				$_GET["liensReseaux"],
+				$_GET["numTel"],
+				$_GET["statut"]
+            );
+
+            // Récupération de tous les livres
+            $les_sites = $bdd->recupererSites();
 
             // Affichage de l'IHM listant les livres de la base de données
             include("ihm/sites_liste.php");
@@ -104,7 +184,6 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
             exit(1);
         }
     }
-
 	?>
 
 	<!-- Footer -->

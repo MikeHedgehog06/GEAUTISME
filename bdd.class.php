@@ -64,17 +64,17 @@ class Bdd {
 	 * @param $heureFin
      * @return le nombre de site ajouté
      */
-    public function ajouterUnSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin) {
+    public function ajouterUnSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) {
         // Préparation de la requête SQL
         $requete_sql = "INSERT INTO Sites
-                        ('adresse', 'codePostal', 'nom', 'type', 'longitude', 'latitude', 'heureDebut', 'heureFin')
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        ('adresse', 'codePostal', 'nom', 'type', 'longitude', 'latitude', 'heureDebut', 'heureFin', 'joursOuverture', 'liensReseaux', 'numTel', 'statut')
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Préparation de la requête SQL
         $stmt = $this->dbh->prepare($requete_sql);
 
         // Exécution de la requête SQL avec les paramètres
-        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin) );
+        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) );
 
         // On retourne les résultats
         return $resultats;
@@ -113,7 +113,7 @@ class Bdd {
 	 * @param $heureFin
      * @return le nombre de site modifié
      */
-    public function modifierSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin) {
+    public function modifierSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) {
         // Préparation de la requête SQL
         $requete_sql = "    UPDATE Sites
                             SET adresse = ?,
@@ -123,15 +123,18 @@ class Bdd {
                             longitude = ?,
                             latitude = ?,
                             heureDebut = ?,
-							heureDebut = ?,
-							heureFin = ?
+							heureFin = ?,
+							joursOuverture = ?,
+							liensReseaux = ?,
+							numTel = ?,
+							statut = ?
                             WHERE idSites=?";
 
         // Préparation de la requête SQL
         $stmt = $this->dbh->prepare($requete_sql);
 
         // Exécution de la requête SQL avec les paramètres
-        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin) );
+        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) );
 
         // On retourne les résultats
         return $resultats;
