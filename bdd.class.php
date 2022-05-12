@@ -113,7 +113,7 @@ class Bdd {
 	 * @param $heureFin
      * @return le nombre de site modifié
      */
-    public function modifierSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) {
+    public function modifierSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut, $idSites) {
         // Préparation de la requête SQL
         $requete_sql = "    UPDATE Sites
                             SET adresse = ?,
@@ -134,7 +134,7 @@ class Bdd {
         $stmt = $this->dbh->prepare($requete_sql);
 
         // Exécution de la requête SQL avec les paramètres
-        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) );
+        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut, $idSites) );
 
         // On retourne les résultats
         return $resultats;
@@ -146,17 +146,17 @@ class Bdd {
      * @param $adresse d'un site à récupérer
      * @return l'id du site correspondant ou 0 si on ne trouve rien
      */
-    public function recupererIdSiteByAdresse($adresse) {
+    public function recupererSiteById($idSites) {
         // Préparation de la requête SQL
-        $requete_sql = "    SELECT idSites
+        $requete_sql = "    SELECT *
                             FROM Sites
-                            WHERE adresse = ?;";
+                            WHERE idSites = ?;";
 
         // Préparation de la requête SQL
         $stmt = $this->dbh->prepare($requete_sql);
 
         // Exécution de la requête SQL avec les paramètres
-        $nb_lignes = $stmt->execute( array($adresse) );
+        $nb_lignes = $stmt->execute( array($idSites) );
 
         // Récupération des résultats
         $resultats = $stmt->fetch();
@@ -165,35 +165,7 @@ class Bdd {
         if ($resultats === FALSE) {
             return "0";
         } else {
-            return $resultats["idSites"];
-        }
-    }
-	
-	/**
-     * Méthode pour récupérer l'id d'un site à partir de son adresse
-     * @param $adresse d'un site à récupérer
-     * @return l'id du site correspondant ou 0 si on ne trouve rien
-     */
-    public function recupererIdSiteByType($type) {
-        // Préparation de la requête SQL
-        $requete_sql = "    SELECT idSites
-                            FROM Sites
-                            WHERE type = ?;";
-
-        // Préparation de la requête SQL
-        $stmt = $this->dbh->prepare($requete_sql);
-
-        // Exécution de la requête SQL avec les paramètres
-        $nb_lignes = $stmt->execute( array($type) );
-
-        // Récupération des résultats
-        $resultats = $stmt->fetch();
-
-        // On retourne les résultats
-        if ($resultats === FALSE) {
-            return "0";
-        } else {
-            return $resultats["idSites"];
+            return $resultats;
         }
     }
 }

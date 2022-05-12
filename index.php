@@ -41,7 +41,35 @@ include("bdd.class.php");
 
 <!-- Second Grid -->
 <?php
-if ($_GET["action"] == "sites" || $_GET["action"] == ""){
+// Vérification si l'utilisateur est authentifié
+if ( (isset($_SESSION["authentification"]) == FALSE) || ($_SESSION["authentification"] == 0) ) {
+
+    // Peut-être souhaite-t-il s'authentifier ?
+    if ($_GET["action"] == "authentification") {
+
+        // Si c'est le cas, on vérifie ses login/password
+        if (    ($_GET["login"] == ADMIN_LOGIN) &&
+                ($_GET["password"] == ADMIN_PASSWORD) ) {
+
+            // Mémorisation de l'authentification pour la suite
+            $_SESSION["authentification"] = 1;
+
+            // Redirection vers la page d'accueil
+            $nom_application = NOM_APPLICATION;
+            include("ihm/accueil.php");
+        }
+        else {
+            // Redirection vers le formulaire d'authentification
+            include("ihm/authentification.php");
+        }
+    } else {
+        // Redirection vers le formulaire d'authentification
+        include("ihm/authentification.php");
+    }
+	var_dump($_SESSION);
+}
+
+if ($_GET["action"] == "sites" && ((isset($_SESSION["authentification"]) == TRUE) || ($_SESSION["authentification"] == 1))){
         try {
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
@@ -109,13 +137,13 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
 
-            // Récupération de tous les livres
+            // Récupération de tous les sites
             $resultat = $bdd->supprimerUnSite( $_GET["idsite"] );
 
-            // Récupération de tous les livres
+            // Récupération de tous les sites
             $les_sites = $bdd->recupererSites();
 
-            // Affichage de l'IHM listant les livres de la base de données
+            // Affichage de l'IHM listant les sites de la base de données
             include("ihm/sites_liste.php");
         }
         catch (PDOException $erreur) {
@@ -133,10 +161,10 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
 
-            // On récupère le livre à éditer/modifier
-            $un_site = $bdd->recupererSites( $_GET["idsite"] );
+            // On récupère le site à éditer/modifier
+            $un_site = $bdd->recupererSiteById( $_GET["idsite"] );
 
-            // Affichage de l'IHM listant les livres de la base de données
+            // Affichage de l'IHM listant les sites de la base de données
             include("ihm/sites_edition.php");
         }
         catch (PDOException $erreur) {
@@ -153,7 +181,7 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
 
-            // Récupération de tous les livres
+            // Récupération de tous les sites
             $resultat = $bdd->modifierSite(
                 $_GET["adresse"],
                 $_GET["codePostal"],
@@ -166,13 +194,14 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
 				$_GET["joursOuverture"],
 				$_GET["liensReseaux"],
 				$_GET["numTel"],
-				$_GET["statut"]
+				$_GET["statut"],
+				$_GET["idsite"]
             );
 
-            // Récupération de tous les livres
+            // Récupération de tous les sites
             $les_sites = $bdd->recupererSites();
 
-            // Affichage de l'IHM listant les livres de la base de données
+            // Affichage de l'IHM listant les sites de la base de données
             include("ihm/sites_liste.php");
         }
         catch (PDOException $erreur) {
@@ -184,6 +213,11 @@ if ($_GET["action"] == "sites" || $_GET["action"] == ""){
             exit(1);
         }
     }
+	else if( $_GET["action"] == ""){
+		//redirection vers la page d'accueil
+		header("Location: /GEAUTISME/index.php?action=sites");
+		exit();
+	}
 	?>
 
 	<!-- Footer -->

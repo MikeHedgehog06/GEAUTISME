@@ -26,16 +26,12 @@ if ( isset($_GET["action"]) == TRUE) {
         try {
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
-
-            // Récupération de l'id d'un site depuis son adresse
-            $idSites = $bdd->recupererIdSiteByAdresse( $_GET["adresse"] );
-			
-			// Récupération de l'id d'un site depuis son type
-            $idSites = $bdd->recupererIdSiteByType( $_GET["type"] );
 			
             // Récupération de tous les sites
             $unSite = $bdd->recupererSites($idSites);
-
+			
+			$unSite = $bdd->recupererSiteById($idSites);
+			
             // Conversion des données en JSON
             include("json/site.php");
         }

@@ -27,7 +27,7 @@ include("en_tete.php");
     </tbody>
 </table>
 
-<!-- Bouton pour retourner à la page avec la liste des livres -->
+<!-- Bouton pour retourner à la page avec la liste des sites -->
 <a href="/GEAUTISME/index.php?action=sites">
     <button class="btn btn-success">Retour</button>
 </a>

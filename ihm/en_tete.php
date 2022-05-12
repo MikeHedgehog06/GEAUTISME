@@ -21,14 +21,14 @@
                     <a class="nav-link" href="./index.php?action=sites">Accueil</a>
                 </li>
                 <!-- Si la personne est authentifiée -->
-                <?php// if ( (isset($_SESSION["authentification"])) && ($_SESSION["authentification"] == 1) ) : ?>
+                <?php if ( (isset($_SESSION["authentification"])) && ($_SESSION["authentification"] == 1) ) : ?>
 
-                <!-- Bouton pour se déconnecter 
+                <!-- Bouton pour se déconnecter -->
                 <form action="index.php" method="GET">
                     <input type="hidden" name="action" value="deconnexion" />
                     <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Déconnexion</button>
-                </form> -->
-                <?php// endif; ?>
+                </form> 
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
