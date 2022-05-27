@@ -56,7 +56,7 @@ class Bdd {
      * Méthode pour ajouter un nouveau site dans la base de données
      * @param $adresse
      * @param $codePostal
-     * @param $nom
+     * @param $name
      * @param $type
      * @param $longitude
      * @param $latitude
@@ -64,17 +64,22 @@ class Bdd {
 	 * @param $heureFin
      * @return le nombre de site ajouté
      */
-    public function ajouterUnSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) {
+    public function ajouterUnSite($adresse, $codePostal, $name, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $lienMaps, $numTel, $statut) {
         // Préparation de la requête SQL
+		$description = 'Horraire de début : '.$heureDebut.'
+		Horraire de fin : '.$heureFin.'
+		Jours d ouverture : '.$joursOuverture.'
+		Numéro de téléphone : '.$numTel.'
+		Lien google maps : '.$lienMaps;
         $requete_sql = "INSERT INTO Sites
-                        ('adresse', 'codePostal', 'nom', 'type', 'longitude', 'latitude', 'heureDebut', 'heureFin', 'joursOuverture', 'liensReseaux', 'numTel', 'statut')
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        ('adresse', 'codePostal', 'name', 'type', 'longitude', 'latitude', 'statut', 'description')
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Préparation de la requête SQL
         $stmt = $this->dbh->prepare($requete_sql);
 
         // Exécution de la requête SQL avec les paramètres
-        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut) );
+        $resultats = $stmt->execute( array($adresse, $codePostal, $name, $type, $longitude, $latitude, $statut, $description) );
 
         // On retourne les résultats
         return $resultats;
@@ -113,28 +118,31 @@ class Bdd {
 	 * @param $heureFin
      * @return le nombre de site modifié
      */
-    public function modifierSite($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut, $idSites) {
-        // Préparation de la requête SQL
+    public function modifierSite($adresse, $codePostal, $name, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $lienMaps, $numTel, $statut, $idSites) {
+		
+        $description = 'Horraire de début : '.$heureDebut.'
+		Horraire de fin : '.$heureFin.'
+		Jours d ouverture : '.$joursOuverture.'
+		Numéro de téléphone : '.$numTel.'
+		Lien google maps : '.$lienMaps;
+		
+		// Préparation de la requête SQL
         $requete_sql = "    UPDATE Sites
                             SET adresse = ?,
                             codePostal = ?,
-                            nom = ?,
+                            name = ?,
                             type = ?,
                             longitude = ?,
                             latitude = ?,
-                            heureDebut = ?,
-							heureFin = ?,
-							joursOuverture = ?,
-							liensReseaux = ?,
-							numTel = ?,
-							statut = ?
+							statut = ?,
+							description = ?
                             WHERE idSites=?";
 
         // Préparation de la requête SQL
         $stmt = $this->dbh->prepare($requete_sql);
 
         // Exécution de la requête SQL avec les paramètres
-        $resultats = $stmt->execute( array($adresse, $codePostal, $nom, $type, $longitude, $latitude, $heureDebut, $heureFin, $joursOuverture, $liensReseaux, $numTel, $statut, $idSites) );
+        $resultats = $stmt->execute( array($adresse, $codePostal, $name, $type, $longitude, $latitude, $statut, $description, $idSites) );
 
         // On retourne les résultats
         return $resultats;

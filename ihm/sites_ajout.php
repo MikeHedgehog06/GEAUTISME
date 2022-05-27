@@ -20,7 +20,7 @@ include("en_tete.php");
 
 <form action="index.php" method="GET">
 
-    <!-- Exemple pour le champ titre -->
+    <!-- Exemple pour le champ Adresse -->
     <div class="form-group">
         <label>Adresse</label>
         <input type="text" name="adresse" class="w3-input">
@@ -33,7 +33,7 @@ include("en_tete.php");
 
     <div class="form-group">
         <label>Nom</label>
-        <input type="text" name="nom" class="w3-input">
+        <input type="text" name="name" class="w3-input">
     </div>
 
     <div class="form-group">
@@ -67,8 +67,8 @@ include("en_tete.php");
     </div>
 	
 	<div class="form-group">
-        <label>LiensReseaux</label>
-        <input type="text" name="liensReseaux" class="w3-input">
+        <label>LienMaps</label>
+        <input type="text" name="lienMaps" class="w3-input">
     </div>
 	
 	<div class="form-group">

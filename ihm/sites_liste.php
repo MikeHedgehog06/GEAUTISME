@@ -37,7 +37,7 @@ include("en_tete.php");
             echo "<tr>";
             echo "<td>";
             echo "<a href=\"/GEAUTISME/index.php?action=details&idsite=".$un_site["idSites"]."\">";
-            echo $un_site["nom"]."</a>";
+            echo $un_site["name"]."</a>";
             echo "</td>";
             echo "<td>".$un_site["adresse"]."</td>";
             echo "<td>";

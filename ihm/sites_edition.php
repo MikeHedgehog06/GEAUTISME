@@ -15,6 +15,15 @@ include("en_tete.php");
 <h1>Sites</h1>
 </div>
 
+<?php
+
+// fonction permettant d'utiliser plusieurs separateurs afin de diviser un string en un tableau de string
+$string = preg_split('/(:|
+)/',$un_site["description"],-1, PREG_SPLIT_NO_EMPTY);
+
+//var_dump($string);
+?>
+
 <form action="index.php" method="GET">
 
 	<div class="form-group">
@@ -37,9 +46,9 @@ include("en_tete.php");
     <div class="form-group">
         <label>Nom</label>
         <input  type="text"
-                name="nom"
+                name="name"
                 class="w3-input"
-                value="<?php echo $un_site["nom"]; ?>" >
+                value="<?php echo $un_site["name"]; ?>" >
     </div>
 
     <div class="form-group">
@@ -71,7 +80,7 @@ include("en_tete.php");
         <input  type="text"
                 name="heureDebut"
                 class="w3-input"
-                value="<?php echo $un_site["heureDebut"]; ?>" >
+                value="<?php echo $string[1]; ?>" >
     </div>
 	
 	<div class="form-group">
@@ -79,7 +88,7 @@ include("en_tete.php");
         <input  type="text"
                 name="heureFin"
                 class="w3-input"
-                value="<?php echo $un_site["heureFin"]; ?>" >
+                value="<?php echo $string[3]; ?>" >
     </div>
 	
 	<div class="form-group">
@@ -87,15 +96,20 @@ include("en_tete.php");
         <input  type="text"
                 name="joursOuverture"
                 class="w3-input"
-                value="<?php echo $un_site["joursOuverture"]; ?>" >
+                value="<?php echo $string[5]; ?>" >
     </div>
 	
 	<div class="form-group">
-        <label>LiensReseaux</label>
+        <label>LienMaps</label>
         <input  type="text"
-                name="liensReseaux"
+                name="lienMaps"
                 class="w3-input"
-                value="<?php echo $un_site["liensReseaux"]; ?>" >
+                value="<?php if($string[9] != " "){
+								 echo $string[9].":".$string[10];
+							 }
+							 else{
+								 echo $string[9];
+							 }?>" >
     </div>
 	
 	<div class="form-group">
@@ -103,7 +117,7 @@ include("en_tete.php");
         <input  type="text"
                 name="numTel"
                 class="w3-input"
-                value="<?php echo $un_site["numTel"]; ?>" >
+                value="<?php echo $string[7]; ?>" >
     </div>
 	
 	<div class="form-group">

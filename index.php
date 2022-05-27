@@ -7,6 +7,12 @@
 ?>
 <?php
 
+// Si aucune session lancée...
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    // ... alors on en lance une
+    session_start();
+}
+
 // Inclusion des paramètres de configuration
 include("config.php");
 
@@ -42,7 +48,7 @@ include("bdd.class.php");
 <!-- Second Grid -->
 <?php
 // Vérification si l'utilisateur est authentifié
-if ( (isset($_SESSION["authentification"]) == FALSE) || ($_SESSION["authentification"] == 0) ) {
+/*if ( (isset($_SESSION["authentification"]) == FALSE) || ($_SESSION["authentification"] == 0) ) {
 
     // Peut-être souhaite-t-il s'authentifier ?
     if ($_GET["action"] == "authentification") {
@@ -66,10 +72,10 @@ if ( (isset($_SESSION["authentification"]) == FALSE) || ($_SESSION["authentifica
         // Redirection vers le formulaire d'authentification
         include("ihm/authentification.php");
     }
-	var_dump($_SESSION);
-}
+	//var_dump($_SESSION["authentification"]);
+}*/
 
-if ($_GET["action"] == "sites" && ((isset($_SESSION["authentification"]) == TRUE) || ($_SESSION["authentification"] == 1))){
+if ($_GET["action"] == "sites"/* && ((isset($_SESSION["authentification"]) == TRUE) && ($_SESSION["authentification"] == 1))*/){
         try {
             // Connexion à la base de données
             $bdd = new Bdd(CHEMIN_VERS_BDD);
@@ -103,14 +109,14 @@ if ($_GET["action"] == "sites" && ((isset($_SESSION["authentification"]) == TRUE
             $resultat = $bdd->ajouterUnSite(
                 $_GET["adresse"],
                 $_GET["codePostal"],
-                $_GET["nom"],
+                $_GET["name"],
                 $_GET["type"],
                 $_GET["longitude"],
                 $_GET["latitude"],
                 $_GET["heureDebut"],
 				$_GET["heureFin"],
 				$_GET["joursOuverture"],
-				$_GET["liensReseaux"],
+				$_GET["lienMaps"],
 				$_GET["numTel"],
 				$_GET["statut"]
             );
@@ -185,14 +191,14 @@ if ($_GET["action"] == "sites" && ((isset($_SESSION["authentification"]) == TRUE
             $resultat = $bdd->modifierSite(
                 $_GET["adresse"],
                 $_GET["codePostal"],
-                $_GET["nom"],
+                $_GET["name"],
                 $_GET["type"],
                 $_GET["longitude"],
                 $_GET["latitude"],
                 $_GET["heureDebut"],
 				$_GET["heureFin"],
 				$_GET["joursOuverture"],
-				$_GET["liensReseaux"],
+				$_GET["lienMaps"],
 				$_GET["numTel"],
 				$_GET["statut"],
 				$_GET["idsite"]
@@ -213,6 +219,18 @@ if ($_GET["action"] == "sites" && ((isset($_SESSION["authentification"]) == TRUE
             exit(1);
         }
     }
+	
+	else if ($_GET["action"] == "deconnexion") {
+        // On vide le tableau session
+        unset($_SESSION);
+
+        // Destruction de la variable session
+        session_destroy();
+
+        // Redirection vers le formulaire d'authentification
+        include("ihm/authentification.php");
+    }
+	
 	else if( $_GET["action"] == ""){
 		//redirection vers la page d'accueil
 		header("Location: /GEAUTISME/index.php?action=sites");
