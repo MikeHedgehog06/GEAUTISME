@@ -220,6 +220,38 @@ if ($_GET["action"] == "sites"/* && ((isset($_SESSION["authentification"]) == TR
         }
     }
 	
+	else if ($_GET["action"] == "importform"){
+        // Affichage de l'IHM ajout
+        include("ihm/sites_import.php");
+	}
+	
+	else if ($_GET["action"] == "importbdd"){
+        try {
+            // Connexion à la base de données
+            $bdd = new Bdd(CHEMIN_VERS_BDD);
+
+            // Récupération de tous les sites
+            $resultat = $bdd->importerUnSite(
+             //a compléter
+            );
+			
+            //echo "RESULTAT => ".$resultat;
+
+            // Récupération de tous les sites
+            $les_sites = $bdd->recupererSites();
+
+            // Affichage de l'IHM listant les sites de la base de données
+            include("ihm/sites_liste.php");
+        }
+        catch (PDOException $erreur) {
+            // Préparation du message d'erreur à afficher
+            $message_erreur = $erreur->getMessage();
+
+            // Affichage de l'IHM erreur
+            include("ihm/erreur.php");
+            exit(1);
+        }
+    }
 	else if ($_GET["action"] == "deconnexion") {
         // On vide le tableau session
         unset($_SESSION);

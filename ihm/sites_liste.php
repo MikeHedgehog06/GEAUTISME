@@ -20,6 +20,10 @@ include("en_tete.php");
     <button class="btn btn-success">Ajouter un site</button>
 </a>
 
+<a href="./index.php?action=importform">
+<button class="btn btn-success">Importer des sites</button>
+</a>
+
 <!-- Tableau des sites -->
 <p>Ci-dessous la liste des sites :</p>
 <table class="table table-striped">
